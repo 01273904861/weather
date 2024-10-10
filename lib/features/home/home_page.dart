@@ -1,69 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weather/core/helper/spacing.dart';
 import 'package:weather/core/routing/routes.dart';
-import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 
-import 'package:weather/features/home/ui/widgets/name_and_number.dart';
+import 'package:weather/features/home/data/cubit/weather_cubit.dart';
+import 'package:weather/features/home/data/cubit/weather_states.dart';
+import 'package:weather/features/home/ui/views/weather_view.dart';
 
-class HomePage extends StatelessWidget {
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int onTapedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.mainLightBlue,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            verticalSpace(20),
-            Text(
-              'Cairo',
-              style: AppTextStyle.font25WhiteBold,
+    return BlocConsumer<WeatherCubit, WeatherStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is WeatherSucess) {
+          return WeatherView(sevenDaysWeather: state.sevenDaysWeather);
+        } else if (state is WeatherFailure) {
+          return Scaffold(
+            body: Center(
+                child: Text(
+              textAlign: TextAlign.center,
+              ' ${state.errorModel.code.toString()} \n ${state.errorModel.message} . ',
+              style:
+                  AppTextStyle.font22WhiteRegular.copyWith(color: Colors.black),
+            )),
+          );
+        } else if (state is WeatherLoading) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
-            verticalSpace(20),
-            Text(
-              'May 28 ,2024',
-              style: AppTextStyle.font15WhiteBold,
-            ),
-            verticalSpace(20),
-            Image.asset(AppAssets.assetsIconsRainyAndSunny,
-                height: 230.h, width: 230.w),
-            verticalSpace(20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                NameAndNumberOfweather(name: 'temp', number: '32'),
-                NameAndNumberOfweather(name: 'wind', number: '10km/h'),
-                NameAndNumberOfweather(name: 'wind', number: '75%'),
+          );
+        } else {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: AppColors.mainLightBlue,
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(Routes.searchPage);
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      size: 25.sp,
+                      color: Colors.white,
+                    ))
               ],
+              title: Text('error page'),
             ),
-            verticalSpace(20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'Today',
-                  style: AppTextStyle.font25WhiteBold.copyWith(fontSize: 23),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(Routes.forecastPage);
-                  },
-                  child: Text(
-                    'view full report',
-                    style: AppTextStyle.font16BlueRegular,
-                  ),
-                )
-              ],
-            ),
-            verticalSpace(200),
-          ],
-        ),
-      ),
+            body: Text('please search'),
+          );
+        }
+      },
     );
   }
 }

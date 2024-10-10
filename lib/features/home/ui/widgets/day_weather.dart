@@ -4,8 +4,8 @@ import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 
-class DayWeatherWidget extends StatelessWidget {
-  const DayWeatherWidget({
+class ForecastDayWeather extends StatelessWidget {
+  const ForecastDayWeather({
     super.key,
   });
 

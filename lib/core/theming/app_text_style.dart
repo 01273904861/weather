@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/theming/font_weigh_helper.dart';
 
 abstract class AppTextStyle {
-  //city name
+  //title
   static TextStyle font25WhiteBold = TextStyle(
     fontSize: 25.sp,
     color: Colors.white,

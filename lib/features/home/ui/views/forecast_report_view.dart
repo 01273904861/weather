@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/routing/routes.dart';
-import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/home/ui/widgets/day_weather.dart';
@@ -36,7 +35,7 @@ class ForecastReportPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             children: [
-              DayWeatherWidget(),
+              ForecastDayWeather(),
             ],
           ),
         ));

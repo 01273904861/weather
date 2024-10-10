@@ -18,7 +18,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText,
     this.verticalPadding,
     this.borderRadius,
-    this.inputColor,
+    this.inputColor, required this.controller,
   });
   final String hintText;
   final Widget? suffixIcon;
@@ -34,9 +34,11 @@ class CustomTextField extends StatelessWidget {
   final bool? obscureText;
   final double? borderRadius;
   final Color? inputColor;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextField(
+       controller: controller,
       style: TextStyle(color: inputColor ?? Colors.white),
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
