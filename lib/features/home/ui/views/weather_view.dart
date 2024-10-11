@@ -8,6 +8,8 @@ import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/home/ui/widgets/hourly_weather.dart';
 import 'package:weather/features/home/ui/widgets/name_and_number.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/hour_model.dart';
+import 'package:weather/features/search/data/models/seven_day_model.dart';
 
 class WeatherView extends StatefulWidget {
   const WeatherView(
@@ -46,7 +48,7 @@ class _WeatherViewState extends State<WeatherView> {
                 style: AppTextStyle.font15WhiteBold,
               ),
               verticalSpace(25),
-              Image.asset(AppAssets.assetsIconsRainyAndSunny,
+              Image.asset(todayWeather.image,
                   height: 230.h, width: 230.w),
               verticalSpace(25),
               Row(
@@ -86,11 +88,11 @@ class _WeatherViewState extends State<WeatherView> {
               SizedBox(
                 height: 100.h,
                 child: ListView.builder(
-                    itemCount: widget.sevenDaysWeatherModel.forecastDays.length,
+                    itemCount: todayWeather.hourModels.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, i) {
-                      List<DayWeatherModel> sevenDays =
-                          widget.sevenDaysWeatherModel.forecastDays;
+                      List<HourModel> hours =
+                         todayWeather.hourModels;
 
                       return GestureDetector(
                         onTap: () {
@@ -101,7 +103,7 @@ class _WeatherViewState extends State<WeatherView> {
                           padding: const EdgeInsets.symmetric(horizontal: 6.0),
                           child: HourlyWeatherWidget(
                             isActive: i == onTapedIndex,
-                            dayWeather: sevenDays[i],
+                            hourModel: hours[i],
                           ),
                         ),
                       );

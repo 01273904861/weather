@@ -5,7 +5,7 @@ import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/home/ui/views/weather_view.dart';
 import 'package:weather/features/home/ui/widgets/forecast_day_weather.dart';
-import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/seven_day_model.dart';
 
 class ForecastReportPage extends StatelessWidget {
   const ForecastReportPage({

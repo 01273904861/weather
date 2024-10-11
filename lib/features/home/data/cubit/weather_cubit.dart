@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weather/core/networking/api_error_model.dart';
 import 'package:weather/core/networking/api_service.dart';
 import 'package:weather/features/home/data/cubit/weather_states.dart';
-import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/seven_day_model.dart';
 
 class WeatherCubit extends Cubit<WeatherStates> {
   TextEditingController searchController = TextEditingController();

@@ -39,7 +39,7 @@ class ForecastDayWeather extends StatelessWidget {
             style: AppTextStyle.font22WhiteRegular.copyWith(fontSize: 35.sp),
           ),
           Image.asset(
-            AppAssets.assetsImagesClear,
+            dayWeatherModel.image,
             width: 50.w,
           ),
         ],

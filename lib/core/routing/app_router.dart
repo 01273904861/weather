@@ -4,6 +4,7 @@ import 'package:weather/features/home/home_page.dart';
 import 'package:weather/features/home/ui/views/forecast_report_view.dart';
 import 'package:weather/features/onboarding/onboarding.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/seven_day_model.dart';
 import 'package:weather/features/search/search_page.dart';
 
 class AppRouter {
