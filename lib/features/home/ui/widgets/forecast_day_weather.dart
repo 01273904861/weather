@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
+import 'package:weather/features/search/data/models/day_weather_model.dart';
 
 class ForecastDayWeather extends StatelessWidget {
   const ForecastDayWeather({
     super.key,
+    required this.dayWeatherModel,
   });
-
+  final DayWeatherModel dayWeatherModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,18 +25,21 @@ class ForecastDayWeather extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Friday',
+                dayWeatherModel.dayOfWeek,
                 style: AppTextStyle.font15WhiteBold,
               ),
               Text(
-                'may,28',
+                dayWeatherModel.monthDate,
                 style: AppTextStyle.font15WhiteRegular,
               ),
             ],
           ),
-          Text('32', style: AppTextStyle.font50WhiteRegular),
+          Text(
+            dayWeatherModel.avgTemp.toString(),
+            style: AppTextStyle.font22WhiteRegular.copyWith(fontSize: 35.sp),
+          ),
           Image.asset(
-            AppAssets.assetsImagesClear,
+            dayWeatherModel.image,
             width: 50.w,
           ),
         ],

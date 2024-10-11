@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
-import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/hour_model.dart';
 
-class DailyWeather extends StatefulWidget {
-  DailyWeather({
+class HourlyWeatherWidget extends StatefulWidget {
+  HourlyWeatherWidget({
     super.key,
     this.isActive = false,
-    required this.dayWeather,
+    required this.hourModel,
   });
-  final DayWeatherModel dayWeather;
+  final HourModel hourModel;
   bool isActive = false;
 
   @override
-  State<DailyWeather> createState() => _DailyWeatherState();
+  State<HourlyWeatherWidget> createState() => _HourlyWeatherWidgetState();
 }
 
-class _DailyWeatherState extends State<DailyWeather> {
+class _HourlyWeatherWidgetState extends State<HourlyWeatherWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,17 +32,17 @@ class _DailyWeatherState extends State<DailyWeather> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
-            widget.dayWeather.image,
+            widget.hourModel.image,
             width: 50.w,
           ),
           Column(
             children: [
               Text(
-                widget.dayWeather.minTemp.toString(),
+                ' ${widget.hourModel.temp.toString()}°C',
                 style: AppTextStyle.font15WhiteRegular,
               ),
               Text(
-                widget.dayWeather.maxTemp.toString(),
+                widget.hourModel.time,
                 style: AppTextStyle.font18WhiteBold,
               ),
             ],

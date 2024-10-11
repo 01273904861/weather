@@ -1,75 +1,71 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:weather/core/theming/app_assets.dart';
-
-class SevenDaysWeatherModel {
-  final String name;
-  final List<DayWeatherModel> forecastDays;
-
-  SevenDaysWeatherModel({required this.forecastDays, required this.name});
-  factory SevenDaysWeatherModel.fromJson(Map<String, dynamic> json) {
-    return SevenDaysWeatherModel(
-      forecastDays: [
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][0]),
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][1]),
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][2]),
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][3]),
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][4]),
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][5]),
-        DayWeatherModel.fromJson(json['forecast']['forecastday'][6]),
-      ],
-      name: json['location']['country'],
-    );
-  }
-}
+import 'package:weather/features/search/data/models/hour_model.dart';
 
 class DayWeatherModel {
-  final String date;
+  final List<HourModel> hourModels;
   final double avgTemp;
   final double maxTemp;
   final double minTemp;
   final int humidity;
   final double wind;
   final String image;
+  final String dayOfWeek;
+  final String monthDate;
+  final String date;
+  final String condition;
+  DayWeatherModel(
+      {required this.avgTemp,
+      required this.maxTemp,
+      required this.minTemp,
+      required this.humidity,
+      required this.wind,
+      required this.image,
+      required this.dayOfWeek,
+      required this.monthDate,
+      required this.hourModels,
+      required this.condition,
+      required this.date});
+  factory DayWeatherModel.fromJson(Map<String, dynamic> forecastdayJson) {
+    Map day = forecastdayJson['day'];
 
-  DayWeatherModel({
-    required this.date,
-    required this.avgTemp,
-    required this.maxTemp,
-    required this.minTemp,
-    required this.humidity,
-    required this.wind,
-    required this.image,
-  });
-  factory DayWeatherModel.fromJson(Map<String, dynamic> json) {
-    Map day = json['day'];
+    String date = forecastdayJson['date'];
+
+    List<dynamic> hours = forecastdayJson['hour'];
+    List<HourModel> hoursList = [];
+    for (var hour in hours) {
+      hoursList.add(HourModel.fromJson(hour));
+    }
     return DayWeatherModel(
-      date: json['date'],
+      condition: day['condition']['text'],
+      date: date,
+      dayOfWeek: getDayOfWeek(date),
+      monthDate: getMonthDate(date),
       avgTemp: day['avgtemp_c'],
       minTemp: day['mintemp_c'],
       humidity: day['avghumidity'],
       wind: day['maxwind_kph'],
-      image: AppAssets.assetsIconsRainy2,
+      image: getWeatherIcon(day['condition']['text']),
       maxTemp: day['maxtemp_c'],
+      hourModels: hoursList,
     );
   }
 }
 
-String getImage(double temp) {
-  if (temp <= 5) {
-    return AppAssets.assetsImagesSnow;
-  } else if (temp <= 10) {
-    return AppAssets.assetsIconsSnowy;
-  }
-  if (temp <= 15) {
-    return AppAssets.assetsIconsRainy3;
-  }
-  if (temp <= 20) {
-    return AppAssets.assetsIconsRainy2;
-  }
-  if (temp <= 25) {
-    return AppAssets.assetsImagesRainy;
-  }
-    if (temp <= 25) {
-    return AppAssets.assetsImagesRainy;
-  }
-  return AppAssets.assetsImagesSnow;
+
+
+String getDayOfWeek(String dateStr) {
+  // Parse the string into a DateTime object
+  DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(dateStr);
+
+  // Get the abbreviated day of the week (like 'Thu' for Thursday)
+  return DateFormat('EEE')
+      .format(parsedDate)
+      .toString(); // 'EEE' gives day abbreviation
+}
+
+String getMonthDate(String dateStr) {
+  DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(dateStr);
+  // Format the date as "Oct, 10"
+  return DateFormat('MMM, dd').format(parsedDate).toString();
 }

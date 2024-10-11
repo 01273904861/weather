@@ -1,5 +1,6 @@
 import 'package:weather/core/networking/api_error_model.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/seven_day_model.dart';
 
 abstract class WeatherStates {}
 

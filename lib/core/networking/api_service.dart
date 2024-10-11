@@ -4,6 +4,7 @@ import 'package:weather/core/networking/api_constants.dart';
 import 'package:weather/core/networking/api_error_model.dart';
 import 'package:weather/core/networking/dio_factory.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
+import 'package:weather/features/search/data/models/seven_day_model.dart';
 
 //http://api.weatherapi.com/v1/forecast.json?
 //key=468ef9d014024a4fa0b224007240610&q=cairo&days=7&lang=ar
