@@ -45,7 +45,7 @@ class SearchPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (weatherCubit.searchController.text.isNotEmpty) {
-                  weatherCubit.getSevenDayesWeather();
+                  weatherCubit.getSevenDaysWeather();
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(Routes.homePage, (_) => false);
                 } else {

@@ -5,24 +5,27 @@ import 'package:weather/core/routing/routes.dart';
 import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
-import 'package:weather/features/home/ui/widgets/daily_weather.dart';
+import 'package:weather/features/home/ui/widgets/hourly_weather.dart';
 import 'package:weather/features/home/ui/widgets/name_and_number.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
 
 class WeatherView extends StatefulWidget {
-  WeatherView({super.key, required this.sevenDaysWeather});
-  int onTapedIndex = 0;
-  final SevenDaysWeatherModel sevenDaysWeather;
-
+  const WeatherView(
+      {super.key, required this.sevenDaysWeatherModel, this.index});
+  final SevenDaysWeatherModel sevenDaysWeatherModel;
+  final int? index;
   @override
   State<WeatherView> createState() => _WeatherViewState();
 }
 
 class _WeatherViewState extends State<WeatherView> {
+  int onTapedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    int i = widget.index ?? 0;
     final DayWeatherModel todayWeather =
-        widget.sevenDaysWeather.forecastDays[0];
+        widget.sevenDaysWeatherModel.forecastDays[i];
 
     return Scaffold(
       backgroundColor: AppColors.mainLightBlue,
@@ -34,12 +37,12 @@ class _WeatherViewState extends State<WeatherView> {
             children: [
               verticalSpace(25),
               Text(
-                widget.sevenDaysWeather.name,
+                widget.sevenDaysWeatherModel.name,
                 style: AppTextStyle.font25WhiteBold,
               ),
               verticalSpace(25),
               Text(
-                todayWeather.date,
+                ' ${todayWeather.dayOfWeek}, ${todayWeather.monthDate}',
                 style: AppTextStyle.font15WhiteBold,
               ),
               verticalSpace(25),
@@ -69,7 +72,8 @@ class _WeatherViewState extends State<WeatherView> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(Routes.forecastPage);
+                      Navigator.of(context).pushNamed(Routes.forecastPage,
+                          arguments: widget.sevenDaysWeatherModel);
                     },
                     child: Text(
                       'view full report',
@@ -82,21 +86,21 @@ class _WeatherViewState extends State<WeatherView> {
               SizedBox(
                 height: 100.h,
                 child: ListView.builder(
-                    itemCount: widget.sevenDaysWeather.forecastDays.length,
+                    itemCount: widget.sevenDaysWeatherModel.forecastDays.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, i) {
                       List<DayWeatherModel> sevenDays =
-                          widget.sevenDaysWeather.forecastDays;
+                          widget.sevenDaysWeatherModel.forecastDays;
 
                       return GestureDetector(
                         onTap: () {
-                          widget.onTapedIndex = i;
+                          onTapedIndex = i;
                           setState(() {});
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: DailyWeather(
-                            isActive: i == widget.onTapedIndex,
+                          child: HourlyWeatherWidget(
+                            isActive: i == onTapedIndex,
                             dayWeather: sevenDays[i],
                           ),
                         ),
@@ -109,6 +113,5 @@ class _WeatherViewState extends State<WeatherView> {
         ),
       ),
     );
-    ;
   }
 }

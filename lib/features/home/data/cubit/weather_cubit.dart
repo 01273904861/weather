@@ -10,13 +10,13 @@ class WeatherCubit extends Cubit<WeatherStates> {
 
   WeatherCubit() : super(WeatherInitial());
   SevenDaysWeatherModel? sevenDaysWeather;
-  getSevenDayesWeather() async {
+  getSevenDaysWeather() async {
     try {
       String cityName =
           searchController.text.isEmpty ? 'cairo' : searchController.text;
       emit(WeatherLoading());
-      sevenDaysWeather = await ApiService()
-          .getSevenDayesWeather(cityName: cityName);
+      sevenDaysWeather =
+          await ApiService().getSevenDayesWeather(cityName: cityName);
       emit(WeatherSucess(sevenDaysWeather: sevenDaysWeather!));
     } on ServerException catch (e) {
       emit(WeatherFailure(errorModel: e.errorModel));

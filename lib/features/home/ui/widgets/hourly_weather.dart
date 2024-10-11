@@ -4,8 +4,8 @@ import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
 
-class DailyWeather extends StatefulWidget {
-  DailyWeather({
+class HourlyWeatherWidget extends StatefulWidget {
+   HourlyWeatherWidget({
     super.key,
     this.isActive = false,
     required this.dayWeather,
@@ -14,10 +14,10 @@ class DailyWeather extends StatefulWidget {
   bool isActive = false;
 
   @override
-  State<DailyWeather> createState() => _DailyWeatherState();
+  State<HourlyWeatherWidget> createState() => _HourlyWeatherWidgetState();
 }
 
-class _DailyWeatherState extends State<DailyWeather> {
+class _HourlyWeatherWidgetState extends State<HourlyWeatherWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
