@@ -48,6 +48,7 @@ class SearchPage extends StatelessWidget {
                   weatherCubit.getSevenDaysWeather();
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(Routes.homePage, (_) => false);
+                  weatherCubit.searchController.clear();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Please enter a city name to search.')));

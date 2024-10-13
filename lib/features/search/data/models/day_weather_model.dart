@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:weather/core/helper/functions.dart';
 import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/features/search/data/models/hour_model.dart';
 
@@ -53,19 +54,3 @@ class DayWeatherModel {
 }
 
 
-
-String getDayOfWeek(String dateStr) {
-  // Parse the string into a DateTime object
-  DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(dateStr);
-
-  // Get the abbreviated day of the week (like 'Thu' for Thursday)
-  return DateFormat('EEE')
-      .format(parsedDate)
-      .toString(); // 'EEE' gives day abbreviation
-}
-
-String getMonthDate(String dateStr) {
-  DateTime parsedDate = DateFormat('yyyy-MM-dd').parse(dateStr);
-  // Format the date as "Oct, 10"
-  return DateFormat('MMM, dd').format(parsedDate).toString();
-}

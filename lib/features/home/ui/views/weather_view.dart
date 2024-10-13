@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weather/core/helper/functions.dart';
 import 'package:weather/core/helper/spacing.dart';
 import 'package:weather/core/routing/routes.dart';
 import 'package:weather/core/theming/app_assets.dart';
@@ -16,12 +18,29 @@ class WeatherView extends StatefulWidget {
       {super.key, required this.sevenDaysWeatherModel, this.index});
   final SevenDaysWeatherModel sevenDaysWeatherModel;
   final int? index;
+
   @override
   State<WeatherView> createState() => _WeatherViewState();
 }
 
+final ScrollController _scrollController = ScrollController();
+
 class _WeatherViewState extends State<WeatherView> {
-  int onTapedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final List<HourModel> hours =
+          widget.sevenDaysWeatherModel.forecastDays[0].hourModels;
+
+      for (int i = 0; i < hours.length; i++) {
+        if (hours[i].time == DateFormat('h a').format(DateTime.now())) {
+          scrollToCurrnetTime(i, _scrollController);
+          break;
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +67,7 @@ class _WeatherViewState extends State<WeatherView> {
                 style: AppTextStyle.font15WhiteBold,
               ),
               verticalSpace(25),
-              Image.asset(todayWeather.image,
-                  height: 230.h, width: 230.w),
+              Image.asset(todayWeather.image, height: 230.h, width: 230.w),
               verticalSpace(25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,23 +106,18 @@ class _WeatherViewState extends State<WeatherView> {
               SizedBox(
                 height: 100.h,
                 child: ListView.builder(
+                    controller: _scrollController,
                     itemCount: todayWeather.hourModels.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, i) {
-                      List<HourModel> hours =
-                         todayWeather.hourModels;
+                      List<HourModel> hours = todayWeather.hourModels;
 
-                      return GestureDetector(
-                        onTap: () {
-                          onTapedIndex = i;
-                          setState(() {});
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: HourlyWeatherWidget(
-                            isActive: i == onTapedIndex,
-                            hourModel: hours[i],
-                          ),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: HourlyWeatherWidget(
+                          isActive: hours[i].time ==
+                              DateFormat('h a').format(DateTime.now()),
+                          hourModel: hours[i],
                         ),
                       );
                     }),
