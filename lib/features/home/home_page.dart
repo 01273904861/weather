@@ -23,6 +23,9 @@ class _HomePageState extends State<HomePage> {
     return BlocConsumer<WeatherCubit, WeatherStates>(
       listener: (context, state) {},
       builder: (context, state) {
+      
+          context.read<WeatherCubitLocal>().fetchWeatherData();
+       
         if (state is WeatherSucess) {
           context
               .read<WeatherCubitLocal>()
