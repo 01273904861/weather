@@ -1,19 +1,30 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:hive/hive.dart';
 import 'package:weather/core/helper/functions.dart';
-import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/features/search/data/models/hour_model.dart';
-
+part 'day_weather_model.g.dart';
+@HiveType(typeId: 1)
 class DayWeatherModel {
+  @HiveField(0)
   final List<HourModel> hourModels;
+  @HiveField(1)
   final double avgTemp;
+  @HiveField(2)
   final double maxTemp;
+  @HiveField(3)
   final double minTemp;
+  @HiveField(4)
   final int humidity;
+  @HiveField(5)
   final double wind;
+  @HiveField(6)
   final String image;
+  @HiveField(7)
   final String dayOfWeek;
+  @HiveField(8)
   final String monthDate;
+  @HiveField(9)
   final String date;
+  @HiveField(10)
   final String condition;
   DayWeatherModel(
       {required this.avgTemp,
@@ -52,5 +63,3 @@ class DayWeatherModel {
     );
   }
 }
-
-

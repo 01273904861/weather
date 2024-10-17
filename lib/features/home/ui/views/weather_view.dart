@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/helper/functions.dart';
 import 'package:weather/core/helper/spacing.dart';
 import 'package:weather/core/routing/routes.dart';
-import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/home/ui/widgets/hourly_weather.dart';
@@ -73,7 +72,7 @@ class _WeatherViewState extends State<WeatherView> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   NameAndNumberOfweather(
-                      name: 'temp', number: todayWeather.avgTemp.toString()),
+                      name: 'temp', number:'${ todayWeather.avgTemp.toString()}°C'),
                   NameAndNumberOfweather(
                       name: 'wind',
                       number: '${todayWeather.wind.toString()}km/h'),

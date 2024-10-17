@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weather/core/theming/app_assets.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/search/data/models/day_weather_model.dart';
@@ -35,8 +34,8 @@ class ForecastDayWeather extends StatelessWidget {
             ],
           ),
           Text(
-            dayWeatherModel.avgTemp.toString(),
-            style: AppTextStyle.font22WhiteRegular.copyWith(fontSize: 35.sp),
+            '${dayWeatherModel.avgTemp.toString()}°c',
+            style: AppTextStyle.font22WhiteRegular.copyWith(fontSize: 30.sp),
           ),
           Image.asset(
             dayWeatherModel.image,

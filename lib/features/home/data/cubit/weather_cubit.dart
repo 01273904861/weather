@@ -24,7 +24,7 @@ class WeatherCubit extends Cubit<WeatherStates> {
       emit(WeatherFailure(
           errorModel: ErrorModel(
               message:
-                  'there is an error, please try again , or check the internet',
+                  'there is an error please try again or check your connection',
               code: 404)));
     }
   }

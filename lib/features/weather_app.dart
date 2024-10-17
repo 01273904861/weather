@@ -5,6 +5,7 @@ import 'package:weather/core/routing/app_router.dart';
 import 'package:weather/core/routing/routes.dart';
 import 'package:weather/core/theming/app_colors.dart';
 import 'package:weather/features/home/data/cubit/weather_cubit.dart';
+import 'package:weather/features/search/data/cubit/weather_cubit_local.dart';
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key, required this.appRouter});
@@ -14,8 +15,15 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ScreenUtilInit(
-        child: BlocProvider(
-          create: (context) => WeatherCubit(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => WeatherCubit(),
+            ),
+           BlocProvider(
+        create: (context) => WeatherCubitLocal(),
+            ),
+          ],
           child: MaterialApp(
             title: 'weater application',
             color: AppColors.mainDarkBlue,
@@ -25,9 +33,9 @@ class WeatherApp extends StatelessWidget {
             ),
 
             /* ThemeMode.system to follow system theme, 
-                       ThemeMode.light for light theme, 
-                       ThemeMode.dark for dark theme
-                    */
+                               ThemeMode.light for light theme, 
+                               ThemeMode.dark for dark theme
+                            */
             debugShowCheckedModeBanner: false,
             onGenerateRoute: appRouter.onGenerateRoute,
             initialRoute: Routes.homePage,
