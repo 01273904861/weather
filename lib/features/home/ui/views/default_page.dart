@@ -5,6 +5,7 @@ import 'package:weather/core/theming/app_text_style.dart';
 import 'package:weather/features/home/data/cubit/weather_cubit.dart';
 import 'package:weather/features/home/data/cubit/weather_states.dart';
 import 'package:weather/features/home/ui/views/weather_view.dart';
+import 'package:weather/features/search/data/cubit/weather_cubit_local.dart';
 
 class DefaultPage extends StatefulWidget {
   const DefaultPage({
@@ -21,6 +22,8 @@ class _DefaultPageState extends State<DefaultPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<WeatherCubit>().getSevenDaysWeather();
+
+
     });
   }
 
