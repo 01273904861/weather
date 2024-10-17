@@ -24,7 +24,6 @@ class ApiService {
 
       Map<String, dynamic> weatherData = res.data;
       SevenDaysWeatherModel w = SevenDaysWeatherModel.fromJson(weatherData);
-      print('\n\n\n\n\n\n${w.name}');
       return w;
     } on DioException catch (e) {
       switch (e.type) {
