@@ -1,10 +1,18 @@
-# weather
+Weather App 🌤️
+A Flutter-based weather application that fetches weather data from an API for a specified city and provides local storage to store the weather data of recent cities.
 
-A new Flutter project.
+
+
+
+Features
+🌐 Fetch Weather Data: Enter a city name to retrieve its weather data including temperature, condition, and forecast for upcoming days.
+💾 Local Storage: The app stores weather information for recent cities locally so that users can quickly check the previously searched locations even when offline.
+
+//🧭 Geolocation Support: The app can fetch the user's current location and display the weather for that city (optional).
+📅 7-Day Forecast: Displays a 7-day weather forecast for the selected city.
+🔍 Recent Search History: View and access previously searched cities stored locally.
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
